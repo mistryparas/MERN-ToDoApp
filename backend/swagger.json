@@ -1,0 +1,170 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "CRUD",
+    "description": "Application API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "CRUD",
+      "description": "APIs for todos in the system"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+
+  "paths": {
+    "/create": {
+      "post": {
+        "tags": ["Create Todo"],
+        "description": "Create new toddo",
+        "parameters": [
+          {
+              "name": "todo",
+              "in": "body",
+              "description": "Todo that we want to create",
+              "schema": {
+                  "$ref": "#/definitions/todo"
+              }
+          }
+      ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New todo is created",
+            "schema": {
+              "$ref": "#/definitions/todo"
+            }
+          }
+        }
+      }
+    },
+    "/read": {
+      "get": {
+        "tags": ["Read Todo"],
+        "description": "Get all todo",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/todo"
+          }
+          }
+        }
+      }
+    },
+    "/read/{id}": {
+      "get": {
+        "tags": ["Read Todo"],
+        "description": "Get specific todo based on id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "todo that we want to list",
+            "schema": {
+              "$ref": "#/definitions/todo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/update/{id}": {
+      "put": {
+        "tags": ["Update Todo"],
+        "description": "Update existing toddo",
+        "parameters": [
+          {
+              "name": "id",
+              "in": "path",
+              "description": "Todo id that we want to update",
+              "schema": {
+                  "$ref": "#/definitions/todo"
+              }
+          },
+          {
+            "name": "todo",
+            "in": "body",
+            "description": "New Todo that we want to replace existing with",
+            "schema": {
+                "$ref": "#/definitions/todo"
+            }
+        }
+      ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New todo is created",
+            "schema": {
+              "$ref": "#/definitions/todo"
+            }
+          }
+        }
+      }
+    },
+    "/delete": {
+      "delete": {
+          "tags": ["Delete Todo"],
+          "summary": "Delete all Todos",
+          "responses": {
+              "200": {
+                  "description": "OK",
+                  "schema": {
+                      "$ref": "#/definitions/todo"
+                  }
+              }
+          }
+      }
+  },
+    "/delete/{id}": {
+        "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "ID of todo that we want to delete",
+                "type": "string"
+            }
+        ],
+        "delete": {
+            "tags": ["Delete Todo"],
+            "summary": "Delete specific todo based on id",
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                        "$ref": "#/definitions/todo"
+                    }
+                }
+            }
+        }
+    }
+  },
+  
+  "definitions": {
+    "todo": {
+      "required": ["todo", "isDone"],
+      "properties": {
+        "todo": {
+          "type": "string"
+        },
+        "isDone": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
