@@ -5,6 +5,7 @@ import Crud from "../../routes/Crud/Crud";
 import Todo from "../../routes/Todo/Todo";
 import Home from "../../routes/Home/Home";
 import Swagger from "../../routes/Swagger/Swagger";
+import "./Layout.scss";
 
 export default function Layout() {
   return (

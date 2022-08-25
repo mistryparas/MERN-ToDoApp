@@ -1,4 +1,4 @@
-import "./Swagger.css";
+import "./Swagger.scss";
 
 export default function Swagger() {
   return (

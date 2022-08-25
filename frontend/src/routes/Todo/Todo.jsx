@@ -1,7 +1,7 @@
 import * as services from "../../utils/services";
 import { useEffect, useState } from "react";
 import TodoItem from "../../components/TodoItem/TodoItem";
-import "./Todo.css";
+import "./Todo.scss";
 
 export default function Todo() {
   const [data, setData] = useState(null);

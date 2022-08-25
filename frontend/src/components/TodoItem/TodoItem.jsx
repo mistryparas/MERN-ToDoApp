@@ -6,7 +6,7 @@ import {
   DropdownItem,
 } from "reactstrap";
 
-import "./TodoItem.css";
+import "./TodoItem.scss";
 
 const TodoItem = ({ title, isDone, onDelete, onChange }) => {
 
