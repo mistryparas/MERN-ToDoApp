@@ -6,6 +6,8 @@ import {
   DropdownItem,
 } from "reactstrap";
 
+import "./TodoItem.css";
+
 const TodoItem = ({ title, isDone, onDelete, onChange }) => {
 
   const [isEdit, setIsEdit] = useState(false);

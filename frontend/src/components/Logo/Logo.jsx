@@ -1,5 +1,6 @@
 import React from "react";
-import logo from '../assets/bank.png';
+import "./Logo.css";
+import logo from '../../assets/bank.png';
 
 export default function Logo(){
     return(

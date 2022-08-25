@@ -1,5 +1,5 @@
-import "../styles/Footer.css";
-import Contact from "./Contact";
+import "./Footer.css";
+import Contact from "../Contact/Contact";
 
 export default function Footer() {
   return (

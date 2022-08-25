@@ -1,6 +1,6 @@
-import * as services from "../utils/services";
+import * as services from "../../utils/services";
 import React from "react";
-import styles from "../styles/Crud.css";
+import styles from "./Crud.css";
 var generate = require('fake-todos');
 
 

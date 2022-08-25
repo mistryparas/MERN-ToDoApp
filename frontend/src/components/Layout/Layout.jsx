@@ -1,10 +1,10 @@
 import { Routes, Route, Outlet } from "react-router-dom";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import Crud from "../routes/crud";
-import Swagger from "../routes/swagger";
-import Todo from "../routes/todo";
-import Home from "../routes/home";
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
+import Crud from "../../routes/Crud/Crud";
+import Todo from "../../routes/Todo/Todo";
+import Home from "../../routes/Home/Home";
+import Swagger from "../../routes/Swagger/Swagger";
 
 export default function Layout() {
   return (
