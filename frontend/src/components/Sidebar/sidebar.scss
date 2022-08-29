@@ -4,13 +4,14 @@ $primary-text-color: #282828;
 
 .sidebar-custom{
     position: fixed;
-    background-color: #f5f5f5;
-    top: 0;
+    background-color: #fff;
+    box-shadow: 0 0 5px 0px #bdbdbd;
+    top: 56px;
     bottom: 0;
     height: 100vh;
     min-height: 500px;
     z-index: 99;
-    padding: 80px 10px 0px;
+    padding: 10px 0px;
     left: 0;
     // width: $sidebar-width;
     transition: width 300ms ease-in-out;
@@ -20,44 +21,49 @@ $primary-text-color: #282828;
     // border-right: solid 4px $default-border-color;
     display: flex;
     flex-flow: column;
-    width: 65px;
+    width: 48px;
     &:hover{
         width: $sidebar-width;
     }
     .user-nav-accordian,
     a{
-        color: #000;
-        padding:  4px 15px 6px;
-        font-size: 16px;
-        margin-bottom: 10px;
-        margin-top: 10px;
+        color: #404040;
+        padding:  15px;
+        font-size: 14px;
+        // margin-bottom: 10px;
+        // margin-top: 10px;
         white-space: nowrap;
         display: flex;
         align-items: center;
         overflow: hidden;
         text-overflow: ellipsis;
         margin-right: 0px;
-        border-radius: 25px;
+        // border-radius: 25px;
         text-decoration: unset;
-        text-transform: uppercase;
+        // text-transform: uppercase;
         font-weight: 600;
         letter-spacing: 1.5px;
+        text-decoration: none;
         i{
-            margin-top: 5px;
-            height: 20px;
-            width: 20px;
+            font-size: 20px;
+            // -webkit-text-stroke: 1px;
+            // margin-top: 5px;
+            // height: 20px;
+            // width: 20px;
             flex-shrink: 0;
         }
         span{
             transition: max-width 300ms ease-in-out;
-            margin-left: 10px;
+            margin-left: 12px;
             // margin-top: 5px;
         }
-        &.link-active,
+        &.active{
+            color: #1fa0ff;
+            background-color: #e1f2ff;
+        }
         &:hover{
-            text-decoration: none;
-            // color: #4472c4;
-            background-color: #C8DBFF;
+            color: #404040;
+            background-color: #f5f5f5;
         }
     }
 

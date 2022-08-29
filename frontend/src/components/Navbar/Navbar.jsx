@@ -4,7 +4,7 @@ import "./Navbar.scss";
 
 export default function Navbar(props) {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light navbar-fixed fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-fixed fixed-top">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <Logo />
@@ -23,15 +23,7 @@ export default function Navbar(props) {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarText">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/todo">Todo</Link>
-            </li>
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/crud">CRUD</Link>
-            </li>
+          <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
 
             <li className="nav-item">
               <Link className="nav-link" to="/swagger">Swagger</Link>

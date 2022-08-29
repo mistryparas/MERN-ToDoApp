@@ -10,9 +10,9 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 export default function Layout() {
   return (
     <>
-      <Sidebar />
+      <Navbar/>
       <main className="main">
-        <Navbar />
+        <Sidebar/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="CRUD" element={<Crud />} />

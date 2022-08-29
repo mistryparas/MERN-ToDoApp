@@ -1,17 +1,23 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./sidebar.scss";
 
 const Sidebar = ({
-
 }) => {
     return (
         <div className="sidebar sidebar-nav sidebar-custom">
-            <Link to="/apiPage" className="nav-link">
-                    <i className="fa fa-user" />
+            <NavLink to="/todo" className="nav-link">
+                    <i class="bi bi-list-task"/>
                     <span>
-                        Api Page
+                        Todo
                     </span>
-            </Link>
+            </NavLink>
+
+            <NavLink to="/crud" className="nav-link">
+                    <i class="bi bi-terminal" />
+                    <span>
+                        CRUD
+                    </span>
+            </NavLink>
         </div>
     )
 }
