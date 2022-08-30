@@ -14,8 +14,9 @@ body {
 
 .main {
   /* display: flex; */
-  padding-top: 56px;
-  height: 100vh;
+  padding-top: 75px;
+  height: calc(100vh - 50px);
+  overflow: auto;
   background-color: white;
   width: calc(100% - 65px);
   margin-left: 65px;
@@ -54,4 +55,8 @@ body {
 .padding-20 {
   padding : 20px !important;
   
+}
+
+.card {
+  padding: 15px;
 }

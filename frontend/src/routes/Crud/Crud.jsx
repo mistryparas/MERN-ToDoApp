@@ -1,6 +1,7 @@
 import * as services from "../../utils/services";
 import React from "react";
 import styles from "./Crud.scss";
+import Title from "../../components/Title/Title";
 var generate = require('fake-todos');
 
 
@@ -39,14 +40,15 @@ export default function Crud() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className="container-fluid crud-container">
 
-      <main className={styles.main}>
-        <h2 className={styles.title}>
-         <a href="https://restfulapi.net/">RESTful APIs</a>
-        </h2>
 
-        <div className="grid">
+        
+
+         <a href="https://restfulapi.net/"><Title title="RESTful Resource Methods"/></a>
+
+
+        <div className="grid margin-top-20">
 
           <div className="card">
             <h2>Create&rarr;</h2>
@@ -77,7 +79,7 @@ export default function Crud() {
           </div>
 
         </div>
-      </main>
+
     </div>
   );
 }

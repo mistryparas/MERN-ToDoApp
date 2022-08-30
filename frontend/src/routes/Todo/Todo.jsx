@@ -1,6 +1,7 @@
 import * as services from "../../utils/services";
 import { useEffect, useState } from "react";
 import TodoItem from "../../components/TodoItem/TodoItem";
+import Title from "../../components/Title/Title";
 import "./Todo.scss";
 
 export default function Todo() {
@@ -69,7 +70,7 @@ export default function Todo() {
       <div className="row">
         <div className="col-sm-12">
           <div className="title-container d-flex">
-            <h4 className="title">Tasks</h4>
+            <Title title="Tasks"/>
             <button
               className="btn btn-primary ml-auto"
               onClick={() => createData()}

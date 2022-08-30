@@ -26,7 +26,7 @@ const TodoItem = ({ title, isDone, onDelete, onChange }) => {
   }
 
   return (
-    <div className="card d-flex flex-row margin-bottom-20 padding-20">
+    <div className="todo-item card d-flex flex-row margin-bottom-20">
       <input
         type="checkbox"
         className="margin-right-10"
@@ -40,7 +40,7 @@ const TodoItem = ({ title, isDone, onDelete, onChange }) => {
         onKeyUp={handleEnterKey}
         type="text" 
         placeholder="Enter Todo item" 
-        className="form-control margin-bottom-20 padding-20"/>
+        className="form-control margin-bottom-20"/>
       }
       {
         !isEdit &&
