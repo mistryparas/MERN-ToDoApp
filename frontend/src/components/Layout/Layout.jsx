@@ -6,13 +6,15 @@ import Todo from "../../routes/Todo/Todo";
 import Home from "../../routes/Home/Home";
 import Swagger from "../../routes/Swagger/Swagger";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { useState } from "react";
 
 export default function Layout() {
+  const [sidebarOpen, setsidebarOpen] = useState(false); // State passed as props
   return (
     <>
       <Navbar/>
-      <main className="main">
-        <Sidebar/>
+      <Sidebar sidebarOpen={sidebarOpen} setsidebarOpen={setsidebarOpen}/> 
+      <main className={`main ${sidebarOpen ? "sidebar-open" : ""}`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="CRUD" element={<Crud />} />

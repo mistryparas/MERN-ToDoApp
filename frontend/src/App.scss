@@ -21,6 +21,11 @@ body {
   width: calc(100% - 65px);
   margin-left: 65px;
   // margin-top: 75px;
+  transition: all 300ms ease-in-out;
+  &.sidebar-open {
+    width: calc(100% - 220px);
+    margin-left: 220px;
+  }
 }
 
 .main > section {

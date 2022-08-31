@@ -1,10 +1,9 @@
 import { NavLink } from "react-router-dom";
 import "./sidebar.scss";
 
-const Sidebar = ({
-}) => {
+const Sidebar = ({sidebarOpen, setsidebarOpen}) => {
     return (
-        <div className="sidebar sidebar-nav sidebar-custom">
+        <div onMouseEnter={() => {setsidebarOpen(true)}} onMouseLeave={() => {setsidebarOpen(false)}} className={`sidebar sidebar-nav sidebar-custom ${sidebarOpen ? "sidebar-open" : "sidebar-close"}`}>
             <NavLink to="/todo" className="nav-link">
                     <i class="bi bi-list-task"/>
                     <span>

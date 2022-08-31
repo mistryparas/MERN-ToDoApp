@@ -5,7 +5,7 @@ $primary-text-color: #282828;
 .sidebar-custom{
     position: fixed;
     background-color: #fff;
-    box-shadow: 0 0 5px 0px #bdbdbd;
+    box-shadow: 0 0 0.5px 0px #bdbdbd;
     top: 56px;
     bottom: 0;
     height: 100vh;
@@ -22,7 +22,7 @@ $primary-text-color: #282828;
     display: flex;
     flex-flow: column;
     width: 48px;
-    &:hover{
+    &.sidebar-open{
         width: $sidebar-width;
     }
     .user-nav-accordian,
