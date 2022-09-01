@@ -4,6 +4,8 @@ import Footer from "../../components/Footer/Footer";
 import Crud from "../../routes/Crud/Crud";
 import Todo from "../../routes/Todo/Todo";
 import Home from "../../routes/Home/Home";
+import SignupForm from "../../routes/Signup/Signup";
+import LoginForm from "../../routes/Login/Login";
 import Swagger from "../../routes/Swagger/Swagger";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { useState } from "react";
@@ -19,6 +21,8 @@ export default function Layout() {
           <Route path="/" element={<Home />} />
           <Route path="CRUD" element={<Crud />} />
           <Route path="Swagger" element={<Swagger />} />
+          <Route path="Signup" element={<SignupForm />} />
+          <Route path="Login" element={<LoginForm />} />
           <Route path="ToDo" element={<Todo />} />
           <Route
             path="*"
