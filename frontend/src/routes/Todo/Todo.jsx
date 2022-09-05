@@ -85,6 +85,7 @@ export default function Todo() {
         <div className="col-sm-12">
           <div className="tasks-container margin-top-20">
             <input
+            data-testid="EnterTodoItem"
               onChange={(e) => {
                 setNewTodo(e.target.value);
               }}
