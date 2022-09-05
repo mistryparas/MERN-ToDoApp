@@ -69,9 +69,10 @@ export default function Todo() {
     <div className="container-fluid home-container">
       <div className="row">
         <div className="col-sm-12">
-          <div className="title-container d-flex">
+          <div className="title-container d-flex" data-testid="ProjectTitle">
             <Title title="Tasks"/>
             <button
+            data-testid="AddNewTodo"
               className="btn btn-primary ml-auto"
               onClick={() => createData()}
             >
