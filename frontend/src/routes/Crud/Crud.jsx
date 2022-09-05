@@ -1,6 +1,6 @@
 import * as services from "../../utils/services";
 import React from "react";
-// import styles from "./Crud.scss";
+import "./Crud.scss";
 import Title from "../../components/Title/Title";
 var generate = require("fake-todos");
 
