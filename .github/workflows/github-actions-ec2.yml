@@ -8,11 +8,11 @@ jobs:
     steps:
       - name: Git Clone
         uses: actions/checkout@v2
-      - name: Creating Env variable for front-end Next Js
+      - name: Creating Env variable for front-end
         run: |
           touch ./frontend/.env
           echo REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} >> ./frontend/.env
-      - name: Creating Env variable for back-end Node Js
+      - name: Creating Env variable for back-end
         run: |
           touch ./backend/.env
           echo DB_PORT=${{ secrets.DB_PORT }} >> ./backend/.env
