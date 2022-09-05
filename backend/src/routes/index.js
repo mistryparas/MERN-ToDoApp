@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const todoController = require('../controller/todo');
+const userController = require('../controller/users');
 
 //Create
 router.post('/create', todoController.create);
@@ -19,5 +20,10 @@ router.delete('/delete/:id', todoController._delete);
 
 //DeleteAll
 router.delete('/delete', todoController._deleteAll);
+
+//Auth
+router.post("/auth/generateToken", userController.generateToken);
+router.post("/auth/refreshToken", userController.refreshToken)
+router.post("/auth/register", userController.register);
 
 module.exports = router;

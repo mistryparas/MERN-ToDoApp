@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 const routes = require('./src/routes');
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
+const auth = require("./src/middleware/auth");
+const expressValidator = require("express-validator");
+
 
 // DB
 require('./src/db');
@@ -18,6 +21,29 @@ app.use(cors());
 // Data parser - used to parse post data
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(expressValidator());
+
+// Auth
+app.use(auth.initialize());
+app.all(process.env.API_BASE + "*", (req, res, next) => {
+    if (req.path.includes(process.env.API_BASE + "auth")) return next();
+    
+    return auth.authenticate((err, user, info) => {
+        if (err) { return next(err); }
+        if (!user) {
+            if (info.name === "TokenExpiredError") {
+                return res.status(401).json({ message: "Your token has expired. Please generate a new one" });
+            } else {
+                return res.status(401).json({ message: info.message });
+            }
+        }
+        req.user = user;
+        app.set("user", user);
+        return next();
+    })(req, res, next);
+});
+
+// Routes
 app.use("/", routes);
 
 // Swagger URL /api-docs
