@@ -1,4 +1,4 @@
-const UserModel = require("../models/user");
+const User = require("../models/user");
 const generateTokenPair = require("../helpers/tokenHelper").generateTokenPair;
 const verifyRefreshToken = require("../helpers/tokenHelper").verifyRefreshToken;
 
@@ -63,13 +63,13 @@ const register = async (req, res) => {
             loginChannel: "email"
         });
 
-        TriggerEmail({
-            eventName: "new_register",
-            params: {
-                name: req.body.name || req.body.email
-            },
-            to: req.body.email
-        })
+        // TriggerEmail({
+        //     eventName: "new_register",
+        //     params: {
+        //         name: req.body.name || req.body.email
+        //     },
+        //     to: req.body.email
+        // })
 
         return res.status(200).json(newUser);
     }catch(err) {
