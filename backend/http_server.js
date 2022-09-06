@@ -25,8 +25,8 @@ app.use(expressValidator());
 
 // Auth
 app.use(auth.initialize());
-app.all(process.env.API_BASE + "*", (req, res, next) => {
-    if (req.path.includes(process.env.API_BASE + "auth")) return next();
+app.all("*", (req, res, next) => {
+    if (req.path.includes("auth")) return next();
     
     return auth.authenticate((err, user, info) => {
         if (err) { return next(err); }

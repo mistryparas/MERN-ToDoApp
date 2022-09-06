@@ -1,4 +1,4 @@
-name: CICD
+<!-- name: CICD
 on:
   push:
 jobs:
@@ -21,4 +21,4 @@ jobs:
           echo DB_NAME=${{ secrets.DB_NAME }} >> ./backend/.env
       - name: Build the docker-compose stack
         run: make run
-        
+         -->

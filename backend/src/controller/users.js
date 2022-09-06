@@ -9,7 +9,7 @@ const generateToken = async (req, res) => {
         req.checkBody("password", "Invalid password").notEmpty();
         let errors = req.validationErrors();
         if (errors) return res.status(401).json({ "message": "Invalid credentials", "errors": errors });
-        let user = await User.findOne({where: { "email": req.body.email, "status": "active" }});
+        let user = await User.findOne({ "email": req.body.email.toLowerCase(), "status": "active" }).exec();
         if (user === null) return res.status(401).json({ "message": "You have entered a wrong email. Please check and try again." });
         let success = await user.comparePassword(req.body.password);
         if (success === false) return res.status(401).json({ "message": "You have entered a wrong password." });
@@ -29,9 +29,9 @@ const refreshToken = async (req, res) => {
         const refreshToken = req.body.refresh_token;
         if(!refreshToken) return res.status(401).json({message: "Bad Request"});
         let userId = await verifyRefreshToken(refreshToken);
-        let user = await User.findOne({where: {
+        let user = await User.findOne( {
             id: userId
-        }});
+        }).exec();
         let { access_token, refresh_token } = generateTokenPair(user);
         return res.status(200).json({
             access_token: access_token,
@@ -48,19 +48,20 @@ const register = async (req, res) => {
         req.checkBody("email", "Email can not be empty").notEmpty();
         req.checkBody("email", "Invalid email. Please check the email entered").isEmail();
         req.checkBody("password", "Password can not be empty").notEmpty();
-        req.checkBody("name", "Name can not be empty").notEmpty();
+        req.checkBody("firstName", "First Name can not be empty").notEmpty();
+        req.checkBody("lastName", "Last Name can not be empty").notEmpty();
 
         let errors = req.validationErrors();
         if (errors) return res.status(401).json({ "message": "Invalid credentials", "errors": errors });
+        let email = req.body.email.toLowerCase();
 
-        let user = await User.findOne({where:{ "email": req.body.email} });
+        let user = await User.findOne({ "email": email}).exec();
         if (user) return res.status(400).json({ "message": "User already exist" });
         let newUser = await User.create({
-            name: req.body.name,
-            email: req.body.email, 
-            password: req.body.password,
-            phone: req.body.phone || "",
-            loginChannel: "email"
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: email, 
+            password: req.body.password
         });
 
         // TriggerEmail({

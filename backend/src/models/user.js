@@ -6,8 +6,8 @@ const SALT_WORK_FACTOR = 10;
 const schema = new Schema({
     firstName: String,
     lastName: String,
-    emailId: String,
-    passwd: String
+    email: String,
+    password: String
 }, { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } });
 
 schema.pre("save", function (next) {

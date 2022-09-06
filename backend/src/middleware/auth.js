@@ -22,7 +22,7 @@ class Auth {
 
         return new Strategy(params, async (req, payload, done) => {
             try{
-                let user = await User.findOne({where: { "email": payload.email }});
+                let user = await User.findOne({ "email": payload.email }).exec();
 
                 if (user === null) {
                     return done(null, false, { message: "The user in the token was not found" });
