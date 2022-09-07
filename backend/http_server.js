@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(expressValidator());
 
-// Auth
+// Authorization
 app.use(auth.initialize());
 app.all("*", (req, res, next) => {
     if (req.path.includes("auth")) return next();
