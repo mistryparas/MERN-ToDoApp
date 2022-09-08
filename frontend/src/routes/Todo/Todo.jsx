@@ -4,7 +4,7 @@ import TodoItem from "../../components/TodoItem/TodoItem";
 import Title from "../../components/Title/Title";
 import "./Todo.scss";
 
-// Test
+// Test2
 
 export default function Todo() {
   const [data, setData] = useState(null);
