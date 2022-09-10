@@ -2,9 +2,9 @@ name: CICD
 on:
   push:
 jobs:
-  build:
+  test:
     name: CI
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Git Clone
         uses: actions/checkout@v2
@@ -19,6 +19,8 @@ jobs:
           echo DB_USER=${{ secrets.DB_USER }} >> ./backend/.env
           echo DB_PASS=${{ secrets.DB_PASS }} >> ./backend/.env
           echo DB_NAME=${{ secrets.DB_NAME }} >> ./backend/.env
-      - name: Build the docker-compose stack
+      - name: Build full-stack using docker-compose
         run: make run
+      - name: Test full-stack
+        run: npm test
         
