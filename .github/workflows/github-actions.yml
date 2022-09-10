@@ -21,6 +21,7 @@ jobs:
           echo DB_NAME=${{ secrets.DB_NAME }} >> ./backend/.env
       - name: Build full-stack using docker-compose
         run: make run
-      - name: Test full-stack
+      - name: Test frontend
+        working-directory: ./frontend
         run: npm test
         
