@@ -9,13 +9,21 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
     - name: Change working dir to frontend
-      run: cd ./frontend; pwd; ls
+      run: cd ./frontend
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
 
     - name: Install dependencies
       run: npm install
