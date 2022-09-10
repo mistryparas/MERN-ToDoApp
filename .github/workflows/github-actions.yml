@@ -15,15 +15,13 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Change working dir to frontend
-      run: ls
-      run: cd ./frontend
-      run: pwd
+      run: cd ./frontend; pwd; ls
 
     - name: Install dependencies
       run: npm install
 
     - name: Run the tests
       run: npm test
-      
+
     - name: Build
       run: npm run build
