@@ -20,7 +20,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Change working dir to frontend
+      run: ls
       run: cd ./frontend
+      run: pwd
     - name: Install dependencies
       run: npm install
     - name: Run the tests
