@@ -1,14 +1,10 @@
 name: Docker Image CI
-on: push
 
+on: push
 jobs:
-  build_frontend:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1 # may be actions/checkout@v2 now
       - name: Login to DockerHub Registry
         run: echo ${{ secrets.DOCKERHUB_TOKEN }} |  docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-      - name: Get the version
-        id: vars
-        run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
