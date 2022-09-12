@@ -6,6 +6,7 @@ import Title from "../../components/Title/Title";
 import {signup} from "../../services/auth-services";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useIdentity } from "../../hooks/IdentityProvider";
 
 const MyTextInput = ({ label, ...props }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -47,12 +48,12 @@ const MyCheckbox = ({ children, ...props }) => {
 // And now we can use these
 const SignupForm = () => {
   const [error, setError] = useState("");
-  let navigate = useNavigate();
+  const { login } = useIdentity();
 
   const handleSignup = async (firstName, lastName, email, password) => {
     try {
       const res = await signup(firstName, lastName, email, password);
-      // navigate("/Login");
+      login(res.data.access_token, res.data.refresh_token)
     }catch(err){
       setError(err.response.data.message);
     }

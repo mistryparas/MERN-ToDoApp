@@ -9,6 +9,7 @@ import LoginForm from "../../routes/Login/Login";
 import Swagger from "../../routes/Swagger/Swagger";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { useState } from "react";
+import { ProtectedRoutes, PublicRoutes, useIdentity } from "../../hooks/IdentityProvider";
 
 export default function Layout() {
   const [sidebarOpen, setsidebarOpen] = useState(false); // State passed as props
@@ -18,12 +19,12 @@ export default function Layout() {
       <Sidebar sidebarOpen={sidebarOpen} setsidebarOpen={setsidebarOpen}/> 
       <main className={`main ${sidebarOpen ? "sidebar-open" : ""}`}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="CRUD" element={<Crud />} />
-          <Route path="Swagger" element={<Swagger />} />
-          <Route path="Signup" element={<SignupForm />} />
-          <Route path="Login" element={<LoginForm />} />
-          <Route path="ToDo" element={<Todo />} />
+          <Route path="/" element={<ProtectedRoutes><Home /></ProtectedRoutes>} />
+          <Route path="CRUD" element={<ProtectedRoutes><Crud /></ProtectedRoutes>} />
+          <Route path="swagger" element={<ProtectedRoutes><Swagger /></ProtectedRoutes>} />
+          <Route path="todo" element={<ProtectedRoutes><Todo /></ProtectedRoutes>} />
+          <Route path="signup" element={<PublicRoutes><SignupForm /></PublicRoutes> } />
+          <Route path="login" element={<PublicRoutes><LoginForm /></PublicRoutes>} />
           <Route
             path="*"
             element={
