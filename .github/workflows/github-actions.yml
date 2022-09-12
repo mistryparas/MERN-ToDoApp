@@ -15,6 +15,7 @@ jobs:
 
       - name: Build the tagged Docker image
         run: docker build -t mmodi/frontend .
-        
+        working-directory: frontend
+
       - name: Push the tagged Docker image
         run: docker push mmodi/frontend
