@@ -2,12 +2,9 @@ name: Docker Image CI
 on: push
 
 jobs:
-  job1_build_frontend:
+  1_build_frontend:
     name: Build frontend docker
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - name: checkout code
       - uses: actions/checkout@v2
@@ -16,9 +13,3 @@ jobs:
       - name: Get the version
         id: vars
         run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
-      - name: Build the tagged Docker image
-        run: docker build -t mmodi/frontend .
-        working-directory: ${{env.working-directory}}
-      - name: Push the tagged Docker image
-        run: docker push mmodi/frontend
-        working-directory: ${{env.working-directory}}
