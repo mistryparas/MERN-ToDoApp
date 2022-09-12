@@ -1,7 +1,5 @@
 name: CICD
-
 on: push
-
 jobs:
   build:
     name: Build Image
