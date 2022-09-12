@@ -1,29 +1,20 @@
-name: CI/CD
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+name: Docker Image CI
+on: push
+#
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - name: Install dependencies
-      run: cd ./frontend; npm install
-
-    - name: Run the tests
-      run: cd ./frontend; npm test
+      - uses: actions/checkout@v1 # may be actions/checkout@v2 now
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_TOKEN }} |  docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: Get the version
+        id: vars
+        run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+      - name: Build the tagged Docker image
+        run: 
+          working-directory: frontend
+          docker build -t mmodi/frontend .
+      - name: Push the tagged Docker image
+        run: 
+          docker push mmodi/frontend
