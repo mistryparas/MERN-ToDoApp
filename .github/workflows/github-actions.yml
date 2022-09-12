@@ -2,8 +2,7 @@ name: Docker Image CI
 on: push
 
 jobs:
-  1_build_frontend:
-    name: Build frontend docker
+  build_frontend:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
