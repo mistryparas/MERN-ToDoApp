@@ -1,4 +1,4 @@
-import * as services from "../../utils/services";
+import * as services from "../../services/todo-services";
 import React from "react";
 import "./Crud.scss";
 import Title from "../../components/Title/Title";

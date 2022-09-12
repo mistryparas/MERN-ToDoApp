@@ -3,6 +3,9 @@ import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
 import "./Signup.scss";
 import Title from "../../components/Title/Title";
+import {signup} from "../../services/auth-services";
+import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const MyTextInput = ({ label, ...props }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -39,11 +42,30 @@ const MyCheckbox = ({ children, ...props }) => {
   );
 };
 
+
+
 // And now we can use these
 const SignupForm = () => {
+  const [error, setError] = useState("");
+  let navigate = useNavigate();
+
+  const handleSignup = async (firstName, lastName, email, password) => {
+    try {
+      const res = await signup(firstName, lastName, email, password);
+      // navigate("/Login");
+    }catch(err){
+      setError(err.response.data.message);
+    }
+  };
+
   return (
     <div className="auth-card card d-flex margin-bottom-20">
       <Title title="Signup" />
+      { error && 
+        <div className="alert alert-danger">
+        {error}
+      </div>
+}
       <Formik
         initialValues={{
           firstName: "",
@@ -70,10 +92,12 @@ const SignupForm = () => {
             .oneOf([true], "You must accept the terms and conditions."),
         })}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+          // setTimeout(() => {
+          //   alert(JSON.stringify(values, null, 2));
+          //   setSubmitting(false);
+          // }, 400);
+          handleSignup(values.firstName, values.lastName, values.email, values.password);
+          setSubmitting(false);
         }}
       >
         <Form>

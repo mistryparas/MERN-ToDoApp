@@ -43,7 +43,7 @@ const refreshToken = async (req, res) => {
     }
 }
 
-const register = async (req, res) => {
+const signup = async (req, res) => {
     try{
         req.checkBody("email", "Email can not be empty").notEmpty();
         req.checkBody("email", "Invalid email. Please check the email entered").isEmail();
@@ -65,7 +65,7 @@ const register = async (req, res) => {
         });
 
         // TriggerEmail({
-        //     eventName: "new_register",
+        //     eventName: "new_signup",
         //     params: {
         //         name: req.body.name || req.body.email
         //     },
@@ -79,4 +79,4 @@ const register = async (req, res) => {
     }
 }
 
-module.exports = {generateToken, refreshToken, register}
+module.exports = {generateToken, refreshToken, signup}
