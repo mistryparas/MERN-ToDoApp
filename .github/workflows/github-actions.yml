@@ -1,11 +1,13 @@
 name: Docker Image CI
 
 on: push
+
 jobs:
-  build_frontend:
+  build_docker_images:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Login to DockerHub Registry
         run: echo ${{ secrets.DOCKERHUB_TOKEN }} |  docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
@@ -13,9 +15,16 @@ jobs:
         id: vars
         run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
 
-      - name: Build the tagged Docker image
+      - name: frontend - Build tagged Docker image
         run: docker build -t mmodi/frontend .
         working-directory: frontend
 
-      - name: Push the tagged Docker image
+      - name: frontend - Push the tagged Docker image
         run: docker push mmodi/frontend
+
+      - name: backend - Build tagged Docker image
+        run: docker build -t mmodi/backend .
+        working-directory: backend
+
+      - name: backend - Push the tagged Docker image
+        run: docker push mmodi/backend
