@@ -25,5 +25,6 @@ router.delete('/delete', todoController._deleteAll);
 router.post("/auth/generateToken", userController.generateToken);
 router.post("/auth/refreshToken", userController.refreshToken)
 router.post("/auth/signup", userController.signup);
+router.get("/users/", userController.getUser)
 
 module.exports = router;

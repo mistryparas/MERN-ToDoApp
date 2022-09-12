@@ -72,11 +72,26 @@ const signup = async (req, res) => {
         //     to: req.body.email
         // })
 
-        return res.status(200).json(newUser);
+        let { access_token, refresh_token } = generateTokenPair(newUser);
+        return res.status(200).json({
+            access_token: access_token,
+            refresh_token: refresh_token
+        });
+
     }catch(err) {
         console.log(err)
         res.status(500).json({ "message": "An error occured", "errors": err });
     }
 }
 
-module.exports = {generateToken, refreshToken, signup}
+const getUser = async (req, res, next) => {
+    try{
+        const u = req.user;
+        const user = await User.findOne({_id: u.id}).exec();
+        return res.status(200).json(user);
+    }catch(err){
+        return res.status(500).json({"message": String(err)});
+    }
+}
+
+module.exports = {generateToken, refreshToken, signup, getUser}
