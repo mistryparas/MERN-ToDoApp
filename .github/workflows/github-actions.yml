@@ -1,13 +1,13 @@
 name: Docker Image CI
 on: push
+defaults:
+  run:
+    working-directory: frontend
 #
 jobs:
   build_frontend:
     name: Build frontend docker
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - name: checkout code
       - uses: actions/checkout@v2
