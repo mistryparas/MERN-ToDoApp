@@ -24,20 +24,14 @@ services:
       - ./database/data:/data/db
   frontend:
     restart: unless-stopped
-    image: frontend
     container_name: frontend
-    build: ./frontend
-    ports:
-      - 3000:3000
-  nginx:
-    restart: unless-stopped
-    container_name: nginx
     image: nginx
-    build: ./nginx
+    build: 
+      context: .
+      dockerfile: ./nginx/Dockerfile
     volumes:
       - ./nginx/conf:/etc/nginx/conf.d
     ports:
       - 80:80
     depends_on:
       - backend
-      - frontend

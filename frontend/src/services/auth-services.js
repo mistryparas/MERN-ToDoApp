@@ -10,8 +10,8 @@ export const signup = (firstName, lastName, email, password) => {
     })
 }
 
-export const login = (email, password) => {
-    return axios.post(apiURL + "/login", {
+export const signin = (email, password) => {
+    return axios.post(apiURL + "/generateToken", {
         "email": email,
         "password": password
     })

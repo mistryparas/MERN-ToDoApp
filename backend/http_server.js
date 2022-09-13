@@ -26,7 +26,7 @@ app.use(expressValidator());
 // Authorization
 app.use(auth.initialize());
 app.all("*", (req, res, next) => {
-    if (req.path.includes("auth")) return next();
+    if (req.path.includes("auth") || req.path.includes("api-docs")) return next();
     
     return auth.authenticate((err, user, info) => {
         if (err) { return next(err); }

@@ -3,6 +3,9 @@ import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
 import "./Login.scss";
 import Title from "../../components/Title/Title";
+import { useIdentity } from "../../hooks/IdentityProvider";
+import {signin} from "../../services/auth-services";
+import { useEffect, useState } from "react";
 
 const MyTextInput = ({ label, ...props }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -22,9 +25,27 @@ const MyTextInput = ({ label, ...props }) => {
 
 // And now we can use these
 const LoginForm = () => {
+
+  const [error, setError] = useState("");
+  const { login } = useIdentity();
+
+  const handleLogin = async (email, password) => {
+    try {
+      const res = await signin(email, password);
+      login(res.data.access_token, res.data.refresh_token)
+    }catch(err){
+      setError(err.response.data.message);
+    }
+  };
+
   return (
     <div className="auth-card card d-flex margin-bottom-20">
       <Title title="Login" />
+      { error && 
+        <div className="alert alert-danger">
+        {error}
+      </div>
+}
       <Formik
         initialValues={{
           email: "",
@@ -38,11 +59,14 @@ const LoginForm = () => {
             .max(20, "Must be 20 characters or less")
             .required("Required"),
         })}
+
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+          // setTimeout(() => {
+          //   alert(JSON.stringify(values, null, 2));
+          //   setSubmitting(false);
+          // }, 400);
+          handleLogin(values.email, values.password);
+          setSubmitting(false);
         }}
       >
         <Form>
