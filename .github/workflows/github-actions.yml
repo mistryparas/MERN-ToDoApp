@@ -10,6 +10,17 @@ jobs:
 
       - name: Docker-compose build & run
         run: |
+          touch ./backend/.env
+          touch DB_HOST=${{ secrets.DB_HOST }} >> ./backend/.env
+          touch DB_PORT=${{ secrets.DB_PORT }} >> ./backend/.env
+          touch DB_USER=${{ secrets.DB_USER }} >> ./backend/.env
+          touch DB_PASS=${{ secrets.DB_PASS }} >> ./backend/.env
+          touch DB_NAME=${{ secrets.DB_NAME }} >> ./backend/.env
+          touch API_BASE=${{ secrets.API_BASE }} >> ./backend/.env
+          touch JWT_SECRET=${{ secrets.JWT_SECRET }} >> ./backend/.env
+          touch REFRESH_SECRET=${{ secrets.REFRESH_SECRET }} >> ./backend/.env
+          touch ./frontend/.env
+          touch REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} >> ./frontend/.env
           make build
           make run
 
