@@ -23,6 +23,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(expressValidator());
 
+// Swagger URL /api-docs
+var options = {
+    explorer: true,
+    swaggerOptions: {
+        url: "/api-docs/swagger.json",
+    },
+};
+app.use(
+    "/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument, options)
+);
+
 // Authorization
 app.use(auth.initialize());
 app.all("*", (req, res, next) => {
@@ -44,20 +57,7 @@ app.all("*", (req, res, next) => {
 });
 
 // Routes
-app.use("/", routes);
-
-// Swagger URL /api-docs
-var options = {
-    explorer: true,
-    swaggerOptions: {
-        url: "/api-docs/swagger.json",
-    },
-};
-app.use(
-    "/api-docs",
-    swaggerUi.serve,
-    swaggerUi.setup(swaggerDocument, options)
-);
+app.use("/api/", routes);
 
 // start server
 // -----------------------
