@@ -49,6 +49,13 @@
     },
     "/read": {
       "get": {
+        "securitySchemes": {
+          "BearerAuth": {
+            "type": "http",
+            "scheme": "bearer"
+          }
+
+        },
         "tags": ["Read Todo"],
         "description": "Get all todo",
         "responses": {

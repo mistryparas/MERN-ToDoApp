@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
 import "./Signup.scss";
@@ -143,6 +144,9 @@ const SignupForm = () => {
           </button>
         </Form>
       </Formik>
+      <div className="text-center">
+        Already a Member? <Link to="/login">Sign In.</Link>
+      </div>
     </div>
   );
 };
