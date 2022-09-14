@@ -25,13 +25,21 @@ services:
   frontend:
     restart: unless-stopped
     container_name: frontend
-    image: nginx
-    build: 
-      context: .
-      dockerfile: ./nginx/Dockerfile
+    image: frontend
+    build: './frontend'
     volumes:
-      - ./nginx/conf:/etc/nginx/conf.d
+      - ./frontend/nginx-conf:/etc/nginx/conf.d
+    depends_on:
+      - backend
+  nginx:
+    restart: unless-stopped
+    container_name: nginx
+    image: nginx
+    build: './nginx'
+    volumes:
+      - ./nginx/nginx-conf:/etc/nginx/conf.d
     ports:
       - 80:80
     depends_on:
       - backend
+      - frontend
