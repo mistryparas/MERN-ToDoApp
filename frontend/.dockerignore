@@ -16,3 +16,9 @@ yarn-error.log*
 .env*.local
 # vercel
 .vercel
+
+npm-debug.log
+.dockerignore
+**/.git
+**/.DS_Store
+**/node_modules

@@ -8,7 +8,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Docker-compose build & run
+      <!-- - name: Docker-compose build & run
         run: |
           touch ./backend/.env
           echo DB_HOST=${{ secrets.DB_HOST }} >> ./backend/.env
@@ -22,7 +22,7 @@ jobs:
           touch ./frontend/.env
           echo REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} >> ./frontend/.env
           make build
-          make run
+          make run -->
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
