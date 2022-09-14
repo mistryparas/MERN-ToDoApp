@@ -8,22 +8,6 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      <!-- - name: Docker-compose build & run
-        run: |
-          touch ./backend/.env
-          echo DB_HOST=${{ secrets.DB_HOST }} >> ./backend/.env
-          echo DB_PORT=${{ secrets.DB_PORT }} >> ./backend/.env
-          echo DB_USER=${{ secrets.DB_USER }} >> ./backend/.env
-          echo DB_PASS=${{ secrets.DB_PASS }} >> ./backend/.env
-          echo DB_NAME=${{ secrets.DB_NAME }} >> ./backend/.env
-          echo API_BASE=${{ secrets.API_BASE }} >> ./backend/.env
-          echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> ./backend/.env
-          echo REFRESH_SECRET=${{ secrets.REFRESH_SECRET }} >> ./backend/.env
-          touch ./frontend/.env
-          echo REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} >> ./frontend/.env
-          make build
-          make run -->
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
