@@ -23,15 +23,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(expressValidator());
 
-// Swagger URL /api-docs
+// Swagger URL /api/api-docs
 var options = {
     explorer: true,
     swaggerOptions: {
-        url: "/api-docs/swagger.json",
+        url: "/api/api-docs/swagger.json",
     },
 };
 app.use(
-    "/api-docs",
+    "/api/api-docs",
     swaggerUi.serve,
     swaggerUi.setup(swaggerDocument, options)
 );
