@@ -15,15 +15,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Login to AWS ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: frontend > Build, tag and push image to AWS ECR
-        working-directory: frontend
-        run: |
-          docker build -t 922538497944.dkr.ecr.us-east-1.amazonaws.com/frontend:latest .
-          docker push 922538497944.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
+     # - name: Login to AWS ECR
+     #   id: login-ecr
+     #   uses: aws-actions/amazon-ecr-login@v1
+      #- name: frontend > Build, tag and push image to AWS ECR
+      #  working-directory: frontend
+      #  run: |
+      #    docker build -t 922538497944.dkr.ecr.us-east-1.amazonaws.com/frontend:latest .
+      #    docker push 922538497944.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
 
       - name: frontend deploy task definition rendering
         id: frontend-web

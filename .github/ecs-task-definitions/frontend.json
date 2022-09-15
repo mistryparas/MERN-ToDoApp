@@ -20,7 +20,7 @@
         "environment": [
           {
             "name": "REACT_APP_API_URL",
-            "value": "http://172.31.26.160/api"
+            "value": "http://172.31.26.160:8080/api"
           }
         ],
         "resourceRequirements": null,
