@@ -1,0 +1,9 @@
+version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: 'arn:aws:ecs:us-east-1:922538497944:task-definition/frontend:3'
+        LoadBalancerInfo:
+          ContainerName: 'frontend-service'
+          ContainerPort: 80
