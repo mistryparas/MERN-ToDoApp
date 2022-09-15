@@ -20,14 +20,10 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: frontend > Build, tag and push image to AWS ECR
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: frontend
-          IMAGE_TAG: ${{ github.sha }}
         working-directory: frontend
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build -t 922538497944.dkr.ecr.us-east-1.amazonaws.com/frontend:latest .
+          docker push 922538497944.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
 
       - name: frontend deploy task definition rendering
         id: frontend-web
@@ -35,7 +31,7 @@ jobs:
         with:
           task-definition: .github/ecs-task-definitions/frontend.json
           container-name: frontend
-          image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          image: 922538497944.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
 
       - name: Deploy Frontend
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
