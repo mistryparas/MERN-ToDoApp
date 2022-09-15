@@ -34,7 +34,7 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: .github/ecs-task-definitions/frontend.json
-          container-name: frontend-service
+          container-name: frontend
           image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Deploy Frontend
