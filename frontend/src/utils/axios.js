@@ -8,10 +8,10 @@ const clearStorageAndRedirect = () => {
     }, 1);
 }
 
-const baseURL = process.env.REACT_APP_API_URL;
-// const baseURL = "http://todoapp-1888867965.us-east-1.elb.amazonaws.com/api";
+const apiURL = process.env.REACT_APP_API_URL;
+// const apiURL = "http://todoapp-1888867965.us-east-1.elb.amazonaws.com/api";
 const axios = Axios.create({
-    baseURL: baseURL,
+    apiURL: apiURL,
     headers: {
         'Authorization': `${localStorage.getItem("access_token") ? `Bearer ${localStorage.getItem("access_token")}` : ""}`,
         'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ axios.interceptors.response.use(
 
         // Prevent infinite loops
         if (error.response.status === 401 && 
-            (originalRequest.url === baseURL+'token/refresh/' || 
+            (originalRequest.url === apiURL+'token/refresh/' || 
                 error.response.data.code === 'user_inactive')) {
             clearStorageAndRedirect();
             return Promise.reject(error);
