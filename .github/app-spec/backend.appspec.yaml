@@ -5,5 +5,5 @@ Resources:
       Properties:
         TaskDefinition: 'arn:aws:ecs:us-east-1:922538497944:task-definition/backend:8'
         LoadBalancerInfo:
-          ContainerName: 'frontend'
-          ContainerPort: 80
+          ContainerName: 'backend'
+          ContainerPort: 8080
