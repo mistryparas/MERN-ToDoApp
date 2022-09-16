@@ -1,6 +1,7 @@
 // import axios from "axios";
 import axios from "../utils/axios";
-const apiURL = process.env.REACT_APP_API_URL;
+// const apiURL = process.env.REACT_APP_API_URL;
+const apiURL = "http://todoapp-1888867965.us-east-1.elb.amazonaws.com/api";
 
 export const createTodo = (todo) => {
     return axios.post(apiURL + "/create", {

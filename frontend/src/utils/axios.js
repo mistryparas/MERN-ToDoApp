@@ -8,7 +8,8 @@ const clearStorageAndRedirect = () => {
     }, 1);
 }
 
-const baseURL = process.env.REACT_APP_API_URL;
+// const baseURL = process.env.REACT_APP_API_URL;
+const baseURL = "http://todoapp-1888867965.us-east-1.elb.amazonaws.com/api";
 const axios = Axios.create({
     baseURL: baseURL,
     headers: {
