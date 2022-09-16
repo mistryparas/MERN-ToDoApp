@@ -20,7 +20,7 @@
         "environment": [
           {
             "name": "REACT_APP_API_URL",
-            "value": "http://todoapp-1888867965.us-east-1.elb.amazonaws.com/api"
+            "value": "http://todoapp-1888867965.us-east-1.elb.amazonaws.com/api/"
           }
         ],
         "resourceRequirements": null,

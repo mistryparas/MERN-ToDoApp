@@ -79,7 +79,7 @@
       }
     ],
     "placementConstraints": [],
-    "memory": "256",
+    "memory": "128",
     "taskRoleArn": null,
     "compatibilities": [
       "EXTERNAL",
