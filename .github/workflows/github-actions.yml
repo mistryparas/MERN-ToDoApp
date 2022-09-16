@@ -39,6 +39,30 @@ jobs:
           task-definition: ${{ steps.frontend-web.outputs.task-definition }}
           service: frontend
           cluster: ToDoApp
-          wait-for-service-stability: true
+          wait-for-service-stability: false
           codedeploy-appspec: .github/app-spec/frontend.appspec.yaml
 
+##backend
+
+      - name: backend > Build, tag and push image to AWS ECR
+        working-directory: backend
+        run: |
+          docker build -t 922538497944.dkr.ecr.us-east-1.amazonaws.com/backend:latest .
+          docker push 922538497944.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+
+      - name: backend deploy task definition rendering
+        id: backend-web
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: .github/ecs-task-definitions/backend.json
+          container-name: backend
+          image: 922538497944.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+
+      - name: Deploy Backend
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.backend-web.outputs.task-definition }}
+          service: backend
+          cluster: ToDoApp
+          wait-for-service-stability: false
+          codedeploy-appspec: .github/app-spec/backend.appspec.yaml
