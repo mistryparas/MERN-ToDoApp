@@ -37,7 +37,7 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.frontend-web.outputs.task-definition }}
-          service: frontend-service
+          service: frontend
           cluster: ToDoApp
           wait-for-service-stability: true
           codedeploy-appspec: .github/app-spec/frontend.appspec.yaml
