@@ -41,9 +41,7 @@ jobs:
           cluster: ToDoApp
           wait-for-service-stability: false
           codedeploy-appspec: .github/app-spec/frontend.appspec.yaml
-
 ##backend
-
       - name: backend > Build, tag and push image to AWS ECR
         working-directory: backend
         run: |
