@@ -1,68 +1,68 @@
-name: CICD
-on: push
-jobs:
-  build:
-    name: Build Image
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
+# name: CICD
+# on: push
+# jobs:
+#   build:
+#     name: Build Image
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Check out code
+#         uses: actions/checkout@v2
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: us-east-1
 
-      - name: Login to AWS ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-##frontend
-      - name: frontend > Build, tag and push image to AWS ECR
-        working-directory: frontend
-        run: |
-          docker build -t 922538497944.dkr.ecr.us-east-1.amazonaws.com/frontend:latest .
-          docker push 922538497944.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
+#       - name: Login to AWS ECR
+#         id: login-ecr
+#         uses: aws-actions/amazon-ecr-login@v1
+# ##frontend
+#       - name: frontend > Build, tag and push image to AWS ECR
+#         working-directory: frontend
+#         run: |
+#           docker build -t 922538497944.dkr.ecr.us-east-1.amazonaws.com/frontend:latest .
+#           docker push 922538497944.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
 
-      - name: frontend deploy task definition rendering
-        id: frontend-web
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: .github/ecs-task-definitions/frontend.json
-          container-name: frontend
-          image: 922538497944.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
+#       - name: frontend deploy task definition rendering
+#         id: frontend-web
+#         uses: aws-actions/amazon-ecs-render-task-definition@v1
+#         with:
+#           task-definition: .github/ecs-task-definitions/frontend.json
+#           container-name: frontend
+#           image: 922538497944.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
 
-      - name: Deploy Frontend
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.frontend-web.outputs.task-definition }}
-          service: frontend
-          cluster: ToDoApp
-          wait-for-service-stability: false
-          codedeploy-appspec: .github/app-spec/frontend.appspec.yaml
+#       - name: Deploy Frontend
+#         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+#         with:
+#           task-definition: ${{ steps.frontend-web.outputs.task-definition }}
+#           service: frontend
+#           cluster: ToDoApp
+#           wait-for-service-stability: false
+#           codedeploy-appspec: .github/app-spec/frontend.appspec.yaml
 
-##backend
+# ##backend
 
-      - name: backend > Build, tag and push image to AWS ECR
-        working-directory: backend
-        run: |
-          docker build -t 922538497944.dkr.ecr.us-east-1.amazonaws.com/backend:latest .
-          docker push 922538497944.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+#       - name: backend > Build, tag and push image to AWS ECR
+#         working-directory: backend
+#         run: |
+#           docker build -t 922538497944.dkr.ecr.us-east-1.amazonaws.com/backend:latest .
+#           docker push 922538497944.dkr.ecr.us-east-1.amazonaws.com/backend:latest
 
-      - name: backend deploy task definition rendering
-        id: backend-web
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: .github/ecs-task-definitions/backend.json
-          container-name: backend
-          image: 922538497944.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+#       - name: backend deploy task definition rendering
+#         id: backend-web
+#         uses: aws-actions/amazon-ecs-render-task-definition@v1
+#         with:
+#           task-definition: .github/ecs-task-definitions/backend.json
+#           container-name: backend
+#           image: 922538497944.dkr.ecr.us-east-1.amazonaws.com/backend:latest
 
-      - name: Deploy Backend
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.backend-web.outputs.task-definition }}
-          service: backend
-          cluster: ToDoApp
-          wait-for-service-stability: false
-          codedeploy-appspec: .github/app-spec/backend.appspec.yaml
+#       - name: Deploy Backend
+#         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+#         with:
+#           task-definition: ${{ steps.backend-web.outputs.task-definition }}
+#           service: backend
+#           cluster: ToDoApp
+#           wait-for-service-stability: false
+#           codedeploy-appspec: .github/app-spec/backend.appspec.yaml
