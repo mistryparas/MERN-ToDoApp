@@ -20,7 +20,7 @@
         "environment": [
           {
             "name": "DB_HOST",
-            "value": "54.147.230.111"
+            "value": "172.31.22.212"
           },
           {
             "name": "DB_NAME",
