@@ -1,5 +1,6 @@
 import axios from "axios";
-const apiURL = process.env.REACT_APP_API_URL + "/auth";
+// const apiURL = process.env.REACT_APP_API_URL + "/auth";
+const apiURL = "https://devstacktutor.com/api" + "/auth";
 // const apiURL = "http://todoapp-1888867965.us-east-1.elb.amazonaws.com/api" + "/auth";
 
 export const signup = (firstName, lastName, email, password) => {
