@@ -39,10 +39,10 @@ jobs:
         with:
           task-definition: ${{ steps.backend-web.outputs.task-definition }}
           service: backend
-          cluster: ToDoApp
+          cluster: ToDoApp-ECS
           wait-for-service-stability: false
           codedeploy-appspec: .github/app-spec/backend.appspec.yaml
-          
+
 ##frontend
       - name: frontend > Build, tag and push image to AWS ECR
         working-directory: frontend
@@ -63,6 +63,6 @@ jobs:
         with:
           task-definition: ${{ steps.frontend-web.outputs.task-definition }}
           service: frontend
-          cluster: ToDoApp
+          cluster: ToDoApp-ECS
           wait-for-service-stability: false
           codedeploy-appspec: .github/app-spec/frontend.appspec.yaml
