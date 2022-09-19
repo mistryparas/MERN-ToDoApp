@@ -9,6 +9,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 const auth = require("./src/middleware/auth");
 const expressValidator = require("express-validator");
+const { application } = require('express');
 
 
 // DB
@@ -39,7 +40,7 @@ app.use(
 // Authorization
 app.use(auth.initialize());
 app.all("*", (req, res, next) => {
-    if (req.path.includes("auth") || req.path.includes("api-docs")) return next();
+    if (req.path.includes("auth") || req.path.includes("healthcheck") || req.path.includes("api-docs")) return next();
     
     return auth.authenticate((err, user, info) => {
         if (err) { return next(err); }

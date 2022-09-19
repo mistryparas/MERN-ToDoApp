@@ -21,6 +21,11 @@ router.delete('/delete/:id', todoController._delete);
 //DeleteAll
 router.delete('/delete', todoController._deleteAll);
 
+//Healthcheck
+router.get('/healthcheck', (req, res) => {
+    return res.status(200).send("Success");
+});
+
 //Auth
 router.post("/auth/generateToken", userController.generateToken);
 router.post("/auth/refreshToken", userController.refreshToken)
