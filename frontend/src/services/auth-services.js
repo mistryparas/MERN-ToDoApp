@@ -1,9 +1,10 @@
 import axios from "axios";
-// const apiURL = process.env.REACT_APP_API_URL + "/auth";
-const apiURL =  "https://devstacktutor.com/api" + "/auth";
+import config from "../config";
+
+// const apiURL =  "https://devstacktutor.com/api" + "/auth";
 
 export const signup = (firstName, lastName, email, password) => {
-    return axios.post(apiURL + "/signup", {
+    return axios.post(config.API_URL + "/auth/signup", {
         "firstName": firstName,
         "lastName": lastName,
         "email": email,
@@ -12,7 +13,7 @@ export const signup = (firstName, lastName, email, password) => {
 }
 
 export const signin = (email, password) => {
-    return axios.post(apiURL + "/generateToken", {
+    return axios.post(config.API_URL + "/auth/generateToken", {
         "email": email,
         "password": password
     })
