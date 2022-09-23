@@ -19,7 +19,7 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-##backend
+###backend
       - name: backend > Build, tag and push image to AWS ECR
         working-directory: backend
         run: |
@@ -43,7 +43,7 @@ jobs:
           wait-for-service-stability: false
           codedeploy-appspec: .github/app-spec/backend.appspec.yaml
 
-##frontend
+###frontend
       - name: frontend > Build, tag and push image to AWS ECR
         working-directory: frontend
         run: |
