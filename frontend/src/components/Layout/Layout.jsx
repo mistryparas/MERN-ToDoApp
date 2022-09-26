@@ -1,7 +1,7 @@
 import { Routes, Route, Outlet } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import Crud from "../../routes/Crud/Crud";
+// import Crud from "../../routes/Crud/Crud";
 import Todo from "../../routes/Todo/Todo";
 import Home from "../../routes/Home/Home";
 import SignupForm from "../../routes/Signup/Signup";
@@ -15,12 +15,12 @@ export default function Layout() {
   const [sidebarOpen, setsidebarOpen] = useState(false); // State passed as props
   return (
     <>
-      <Navbar/>
+      <Navbar sidebarOpen={sidebarOpen} setsidebarOpen={setsidebarOpen} />
       <Sidebar sidebarOpen={sidebarOpen} setsidebarOpen={setsidebarOpen}/> 
       <main className={`main ${sidebarOpen ? "sidebar-open" : ""}`}>
         <Routes>
           <Route path="/" element={<ProtectedRoutes><Home /></ProtectedRoutes>} />
-          <Route path="CRUD" element={<ProtectedRoutes><Crud /></ProtectedRoutes>} />
+          {/* <Route path="CRUD" element={<ProtectedRoutes><Crud /></ProtectedRoutes>} /> */}
           <Route path="swagger" element={<ProtectedRoutes><Swagger /></ProtectedRoutes>} />
           <Route path="todo" element={<ProtectedRoutes><Todo /></ProtectedRoutes>} />
           <Route path="signup" element={<PublicRoutes><SignupForm /></PublicRoutes> } />
