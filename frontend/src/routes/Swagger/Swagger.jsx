@@ -1,5 +1,5 @@
 import "./Swagger.scss";
-import config from "../config";
+import config from "../../config";
 // const baseURL = process.env.REACT_APP_API_URL;
 
 
