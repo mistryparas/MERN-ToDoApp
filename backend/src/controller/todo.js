@@ -35,11 +35,22 @@ const _deleteAll = async (req, res) => {
     return res.json(result);
 };
 
+const getStats = async (req, res) => {
+    const total = await TodoModel.find({userId: req.user.id}).count();
+    const completed = await TodoModel.find({userId: req.user.id, isDone: true}).count();
+    return res.json({
+      total: total,
+      completed: completed,
+      pending: total-completed
+    })
+  }
+
 module.exports = {
   create: create,
   read: read,
   readAll: readAll,
   update: update,
   _delete: _delete,
-  _deleteAll: _deleteAll
+  _deleteAll: _deleteAll,
+  getStats: getStats
 };

@@ -21,3 +21,6 @@ export const deleteTodo = (id) => {
     return axios.delete("/delete/" + id)
 }
 
+export const getStats = () => {
+    return axios.get("/stats");
+}

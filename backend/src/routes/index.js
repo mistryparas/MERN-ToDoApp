@@ -21,6 +21,8 @@ router.delete('/delete/:id', todoController._delete);
 //DeleteAll
 router.delete('/delete', todoController._deleteAll);
 
+router.get("/stats", todoController.getStats)
+
 //Healthcheck
 router.get('/healthcheck', (req, res) => {
     return res.status(200).send("Success");
