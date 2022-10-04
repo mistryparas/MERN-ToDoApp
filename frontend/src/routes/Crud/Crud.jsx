@@ -56,7 +56,7 @@ export default function Crud() {
         <div className="card">
           <h2>Read&rarr;</h2>
           <button type="button" className="btn btn-primary" onClick={readTodo}>
-            READ
+            GET
           </button>
         </div>
 
@@ -67,7 +67,7 @@ export default function Crud() {
             className="btn btn-primary"
             onClick={updateTodo}
           >
-            UPDATE
+            PUT
           </button>
         </div>
 
