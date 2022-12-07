@@ -1,4 +1,3 @@
 const config = {};
-config["API_URL"] = "http://localhost:3000/api";
-
+config["API_URL"] = `${window.location.origin}/api`;
 export default config;
