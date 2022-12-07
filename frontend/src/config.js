@@ -1,8 +1,4 @@
 const config = {};
-config["API_URL"] = "http://localhost:8080/api";
-if (process.env.NODE_ENV.toLowerCase() === "production")
-{
-    config["API_URL"] = "https://devstacktutor.com/api";
-}
+config["API_URL"] = "http://localhost:3000/api";
 
 export default config;
