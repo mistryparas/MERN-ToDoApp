@@ -9,7 +9,9 @@ pipeline
       }
       stage("config env") {
         steps {
-          sh ''' cp -av backend/sample.env backend/.env '''
+          sh ''' sed 's/\"//g' backend/sample.env
+          sed 's/\'//g' backend/sample.env
+          cp -av backend/sample.env backend/.env '''
         }
       }
       stage("Build") {
@@ -17,7 +19,14 @@ pipeline
            sh  ''' make build '''
         }
       }
-
+      stage("push nginx") {
+        steps {
+           sh  ''' docker tag nginx:latest mistryparas/nginx:v0.0.$BUILD_NO 
+           docker push mistryparas/nginx:v0.0.$BUILD_NO 
+           docker delete nginx:latest mistryparas/nginx:v0.0.$BUILD_NO '''
+        }
+      }
 
     }
 }
+
