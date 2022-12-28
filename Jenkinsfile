@@ -19,9 +19,9 @@ pipeline
       }
       stage("push nginx") {
         steps {
-           sh  ''' docker tag nginx:latest mistryparas/nginx:v0.0.$BUILD_NO 
-           docker push mistryparas/nginx:v0.0.$BUILD_NO 
-           docker rmi -f nginx:latest mistryparas/nginx:v0.0.$BUILD_NO '''
+           sh  ''' docker tag nginx:latest mistryparas/nginx:v0.0.${BUILD_NUMBER} 
+           docker push mistryparas/nginx:v0.0.${BUILD_NUMBER}
+           docker rmi -f nginx:latest mistryparas/nginx:v0.0.${BUILD_NUMBER} '''
         }
       }
 
