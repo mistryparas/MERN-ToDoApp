@@ -9,9 +9,7 @@ pipeline
       }
       stage("config env") {
         steps {
-          sh ''' sed -i 's/\"//g' backend/sample.env
-          sed -i 's/\'//g' backend/sample.env
-          cp -av backend/sample.env backend/.env '''
+          sh ''' cp -av backend/sample.env backend/.env '''
         }
       }
       stage("Build") {
