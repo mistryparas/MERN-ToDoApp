@@ -26,6 +26,30 @@ pipeline
            docker rmi -f nginx:latest mistryparas/nginx:v0.0.${BUILD_NUMBER} '''
         }
       }
+      stage("push database") {
+        steps {
+           sh  '''
+           docker tag database mistryparas/database:v0.0.${BUILD_NUMBER} 
+           docker push mistryparas/database:v0.0.${BUILD_NUMBER}
+           docker rmi -f database:latest mistryparas/database:v0.0.${BUILD_NUMBER} '''
+        }
+      }
+      stage("push frontend") {
+        steps {
+           sh  '''
+           docker tag frontend mistryparas/frontend:v0.0.${BUILD_NUMBER} 
+           docker push mistryparas/frontend:v0.0.${BUILD_NUMBER}
+           docker rmi -f frontend:latest mistryparas/frontend:v0.0.${BUILD_NUMBER} '''
+        }
+      }
+      stage("push backend") {
+        steps {
+           sh  '''
+           docker tag backend mistryparas/backend:v0.0.${BUILD_NUMBER} 
+           docker push mistryparas/backend:v0.0.${BUILD_NUMBER}
+           docker rmi -f backend:latest mistryparas/backend:v0.0.${BUILD_NUMBER} '''
+        }
+      }
 
     }
 }
