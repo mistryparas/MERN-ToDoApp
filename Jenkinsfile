@@ -20,7 +20,7 @@ pipeline
       stage("push nginx") {
         steps {
            sh  '''
-	   docker login -u "mistryparas" -p "Paras@rhca25" docker.io 
+	   docker login -u "mistryparas" -p "XXXXXXXXXX" docker.io 
            docker tag nginx mistryparas/nginx:v0.0.${BUILD_NUMBER} 
            docker push mistryparas/nginx:v0.0.${BUILD_NUMBER}
            docker rmi -f nginx:latest mistryparas/nginx:v0.0.${BUILD_NUMBER} '''
