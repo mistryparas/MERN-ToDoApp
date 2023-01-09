@@ -1,4 +1,4 @@
 const config = {};
 // config["API_URL"] = `${window.location.origin}/api`;
-config["API_URL"] = "http://localhost:31815";
+config["API_URL"] = "http://192.168.217.132:31815";
 export default config;
