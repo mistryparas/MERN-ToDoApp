@@ -2,16 +2,6 @@
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh 
-
-### Install Ingress
-helm upgrade --install ingress-nginx ingress-nginx \
-  --repo https://kubernetes.github.io/ingress-nginx \
-  --namespace ingress-nginx --create-namespace
-
-Download Helm 
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 
-chmod 700 get_helm.sh 
-./get_helm.sh 
   
 Download Trident package  
  
@@ -20,6 +10,7 @@ wget https://github.com/NetApp/trident/releases/download/v22.07.0/trident-instal
 tar -xvf trident-installer-22.07.0.tar.gz 
   
 Install Astra Trident 
+
 cd trident-installer/helm/ 
 kubectl create ns trident 
 helm install trident trident-operator-22.07.0.tgz -n trident 
