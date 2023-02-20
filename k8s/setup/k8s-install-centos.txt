@@ -1,0 +1,63 @@
+
+# 2x VMs Minimum CPU (2), RAM (2GB) 
+
+# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.217.131 master
+192.168.217.132 worker
+192.168.217.100 nfs-svm
+
+yum update –y 
+yum -y install wget yum-utils git nfs-utils
+
+systemctl disable firewalld; systemctl stop firewalld
+sudo setenforce 0
+sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+
+swapoff -a 
+cp /etc/fstab /etc/fstab.bak 
+sed -e '/swap/ s/^#*/#/g' -i /etc/fstab 
+
+cat >>/etc/sysctl.d/kubernetes.conf<<EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+sysctl --system
+
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo 
+yum install docker-ce docker-ce-cli containerd.io 
+systemctl start docker 
+systemctl enable docker.service 
+
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=0
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+  
+yum install -y kubelet kubeadm kubectl
+systemctl enable --now kubelet
+
+rm /etc/containerd/config.toml
+systemctl restart containerd
+
+##### Create Cluster from Master node
+kubeadm init --pod-network-cidr=192.168.24.0/24 
+
+mkdir -p $HOME/.kube 
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config 
+chown $(id -u):$(id -g) $HOME/.kube/config 
+  
+curl https://docs.projectcalico.org/manifests/calico.yaml -O 
+kubectl apply -f calico.yaml 
+
+##### Join Worker e.g.
+  
+kubeadm join 192.168.0.60:6443 --token pddzav.xg20a5v1v9py1saf \ 
+        --discovery-token-ca-cert-hash sha256:c6bb96a5a958a4b6c794e806543cd1460fccb30924e14d16361b1cd3cc31f7b4 
+  

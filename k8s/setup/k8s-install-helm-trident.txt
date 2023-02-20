@@ -1,0 +1,113 @@
+### Install HELM
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh 
+
+### Install Ingress
+helm upgrade --install ingress-nginx ingress-nginx \
+  --repo https://kubernetes.github.io/ingress-nginx \
+  --namespace ingress-nginx --create-namespace
+
+Download Helm 
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 
+chmod 700 get_helm.sh 
+./get_helm.sh 
+  
+Download Trident package  
+ 
+Change for latest version: 
+wget https://github.com/NetApp/trident/releases/download/v22.07.0/trident-installer-22.07.0.tar.gz 
+tar -xvf trident-installer-22.07.0.tar.gz 
+  
+Install Astra Trident 
+cd trident-installer/helm/ 
+kubectl create ns trident 
+helm install trident trident-operator-22.07.0.tgz -n trident 
+  
+Validate that Astra Trident has been successfully installed:  
+ 
+kubectl get pods -n trident 
+ 
+Copy tridenctl to /usr/bin: 
+ 
+cp ~/trident-installer/tridentctl /usr/bin 
+ 
+Example backend-sydney-nas.yaml 
+ 
+tridentctl -n trident create backend -f backend-sydney-nas.yaml 
++------+----------------+--------------------------------------+--------+---------+ 
+| NAME | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES | 
++------+----------------+--------------------------------------+--------+---------+ 
+| nas  | ontap-nas      | ea038419-8267-4e00-ac85-385a7817556b | online |       0 | 
++------+----------------+--------------------------------------+--------+---------+ 
+[root@ACCmaster-01 ~]# kubectl apply -f sc-sydney-nas.yaml 
+storageclass.storage.k8s.io/nas created 
+  
+Add CSI volume snapshot CRDs: 
+  
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml 
+customresourcedefinition.apiextensions.k8s.io/volumesnapshotclasses.snapshot.storage.k8s.io created 
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml 
+customresourcedefinition.apiextensions.k8s.io/volumesnapshotcontents.snapshot.storage.k8s.io created 
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml 
+customresourcedefinition.apiextensions.k8s.io/volumesnapshots.snapshot.storage.k8s.io created 
+  
+Add CSI snapshot controller: 
+  
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml 
+serviceaccount/snapshot-controller created 
+clusterrole.rbac.authorization.k8s.io/snapshot-controller-runner created 
+clusterrolebinding.rbac.authorization.k8s.io/snapshot-controller-role created 
+role.rbac.authorization.k8s.io/snapshot-controller-leaderelection created 
+rolebinding.rbac.authorization.k8s.io/snapshot-controller-leaderelection created 
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml 
+deployment.apps/snapshot-controller created 
+  
+Setup volume snapshot class: 
+  
+cat csi-snapclass.yaml 
+  
+apiVersion: snapshot.storage.k8s.io/v1 
+kind: VolumeSnapshotClass 
+metadata: 
+  name: csi-snapclass 
+driver: csi.trident.netapp.io 
+  
+kubectl apply -f csi-snapclass.yaml 
+volumesnapshotclass.snapshot.storage.k8s.io/csi-snapclass created 
+  
+Create & mount registry volume 
+  
+mkdir /mnt/registry 
+mount -t nfs -o vers=3 10.128.59.204:/k8s_registry /mnt/registry 
+  
+mkdir -p /mnt/registry && cd "$_" 
+mkdir certs 
+openssl req -x509 -newkey rsa:4096 -days 365 -nodes -sha256 -keyout certs/tls.key -out certs/tls.crt -subj "/CN=docker-registry" -addext "subjectAltName = DNS:docker-registry" 
+mkdir auth 
+docker login 
+docker run --rm --entrypoint htpasswd registry:2.6.2 -Bbn myuser mypasswd > auth/htpasswd 
+kubectl create secret tls certs-secret --cert=/mnt/registry/certs/tls.crt --key=/mnt/registry/certs/tls.key 
+kubectl create secret generic auth-secret –from file=/registry/auth/htpasswd 
+  
+cat <<EOF >> /etc/docker/daemon.json 
+{ 
+ "insecure-registries":["registry.syd.netapp.com:5000"] 
+} 
+EOF 
+  
+reboot 
+  
+docker run -d --restart=unless-stopped --name registry -v /mnt/registry:/var/lib/registry -p 5000:5000 registry:2 
+  
+Test login: 
+  
+[root@k8s-master registry]# docker login registry.demo.netapp.com:5000 
+Username: registryuser 
+Password: 
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json. 
+Configure a credential helper to remove this warning. See 
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store 
+  
+Login Succeeded 
+ 
