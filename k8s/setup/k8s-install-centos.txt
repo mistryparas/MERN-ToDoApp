@@ -59,7 +59,9 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 curl https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml -O
 kubectl apply -f calico.yaml
 
+
 ##### Join Worker e.g.  
-kubeadm join 192.168.0.60:6443 --token pddzav.xg20a5v1v9py1saf \ 
-        --discovery-token-ca-cert-hash sha256:c6bb96a5a958a4b6c794e806543cd1460fccb30924e14d16361b1cd3cc31f7b4 
+
+kubeadm join 192.168.0.60:6443 --token <<TBC>> \ 
+        --discovery-token-ca-cert-hash <<TBC>>
   
