@@ -17,7 +17,13 @@ spec:
         service: frontend
     spec:
       containers:
-      - image: mmodi/frontend:latest
+      - env:
+        - name: REACT_APP_API_URL
+          valueFrom:
+            configMapKeyRef:
+              key: REACT_APP_API_URL
+              name: frontend-env
+        image: mmodi/frontend:latest
         imagePullPolicy: ""
         name: frontend
         resources: {}
