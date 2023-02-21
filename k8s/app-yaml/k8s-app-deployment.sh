@@ -22,6 +22,8 @@ kubectl create -f backend-service.yaml
 kubectl create -f frontend-deployment.yaml
 kubectl create -f frontend-service.yaml
 
+kubectl create -f ingress.yaml
+
 ### Apply
 kubectl apply -f database-pv.yaml
 kubectl apply -f database-pvc.yaml
