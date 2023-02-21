@@ -12,3 +12,7 @@ kubectl --namespace ingress-nginx get services
   
 ## Install MetalLB in your cluster for External Load Balancer
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.7/config/manifests/metallb-native.yaml
+
+
+kubectl create -f metallb.yaml
+kubectl --namespace metallb-system get all
