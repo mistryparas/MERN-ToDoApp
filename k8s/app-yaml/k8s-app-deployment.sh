@@ -3,6 +3,12 @@
 ### Docker Login to hub.docker.com so can pull your app images
 docker login
 
+docker tag frontend:latest mmodi/frontend:latest
+docker push mmodi/frontend:latest
+
+docker tag backend:latest mmodi/backend:latest
+docker push mmodi/backend:latest
+
 ### Create
 kubectl create -f database-pv.yaml
 kubectl create -f database-pvc.yaml
