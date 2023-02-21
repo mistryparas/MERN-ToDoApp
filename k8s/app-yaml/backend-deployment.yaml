@@ -43,6 +43,11 @@ spec:
             configMapKeyRef:
               key: DB_USER
               name: backend-env
+        - name: IS_DB_SRV
+          valueFrom:
+            configMapKeyRef:
+              key: IS_DB_SRV
+              name: backend-env
         - name: JWT_SECRET
           valueFrom:
             configMapKeyRef:

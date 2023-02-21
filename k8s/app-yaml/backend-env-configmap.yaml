@@ -5,6 +5,7 @@ data:
   DB_PORT: "27017"
   DB_USER: ""
   DB_PASS: ""
+  IS_DB_SRV: "false"
   JWT_SECRET: MMM
   REFRESH_SECRET: MMM
 kind: ConfigMap
