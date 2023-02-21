@@ -6,7 +6,7 @@ import {API_URL} from "../../config";
 export default function Swagger() {
   return (
     <iframe
-      title="Powerbi - General Overview"
+      title="Swagger"
       width="100%"
       height="100%"
       src={API_URL + "/api-docs"}

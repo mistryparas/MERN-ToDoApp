@@ -13,6 +13,7 @@ let options = {
 };
 
 // mongoose.connect(`mongodb+srv://${process.env.DB_HOST}`, options)
+console.log(process.env.DB_HOST)
 mongoose.connect(`mongodb${isSRV == "true" ? "+srv" : ""}://${process.env.DB_HOST}`, options)
 .then(() => console.log("connected!"))
 .catch(err => {
