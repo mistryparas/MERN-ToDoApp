@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import config from '../config';
+import {API_URL} from "../config";
 
 const clearStorageAndRedirect = () => {
     localStorage.removeItem("access_token");
@@ -9,9 +9,8 @@ const clearStorageAndRedirect = () => {
     }, 1);
 }
  
-// const apiURL =  "https://devstacktutor.com/api";
 const axios = Axios.create({
-    baseURL: config.API_URL,
+    baseURL: API_URL,
     headers: {
         'Authorization': `${localStorage.getItem("access_token") ? `Bearer ${localStorage.getItem("access_token")}` : ""}`,
         'Content-Type': 'application/json',
@@ -26,7 +25,7 @@ axios.interceptors.response.use(
 
         // Prevent infinite loops
         if (error.response.status === 401 && 
-            (originalRequest.url === config.API_URL +'token/refresh/' || 
+            (originalRequest.url === API_URL +'token/refresh/' || 
                 error.response.data.code === 'user_inactive')) {
             clearStorageAndRedirect();
             return Promise.reject(error);
