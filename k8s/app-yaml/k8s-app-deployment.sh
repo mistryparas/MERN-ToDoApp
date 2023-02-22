@@ -21,7 +21,6 @@ kubectl create -f backend-env-configmap.yaml
 kubectl create -f backend-deployment.yaml
 kubectl create -f backend-service.yaml
 
-kubectl create -f frontend-env-configmap.yaml
 kubectl create -f frontend-deployment.yaml
 kubectl create -f frontend-service.yaml
 
@@ -37,7 +36,6 @@ kubectl apply -f backend-env-configmap.yaml
 kubectl apply -f backend-deployment.yaml
 kubectl apply -f backend-service.yaml
 
-kubectl apply -f frontend-env-configmap.yaml
 kubectl apply -f frontend-deployment.yaml
 kubectl apply -f frontend-service.yaml
 
