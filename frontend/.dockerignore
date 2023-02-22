@@ -1,6 +1,5 @@
 # Ignore
 .env.local
-.env
 /secret
 /node_modules
 /data
