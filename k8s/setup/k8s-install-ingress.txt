@@ -1,0 +1,25 @@
+### Install HELM
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh 
+
+## Install Ingress
+helm upgrade --install ingress-nginx ingress-nginx \
+  --repo https://kubernetes.github.io/ingress-nginx \
+  --namespace ingress-nginx --create-namespace
+
+kubectl --namespace ingress-nginx get services
+kubectl get service ingress-nginx-controller --namespace=ingress-nginx
+kubectl describe ingress ingress
+  
+## Install MetalLB in your cluster for External Load Balancer
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.7/config/manifests/metallb-native.yaml
+
+
+kubectl create -f metallb.yaml
+kubectl --namespace metallb-system get all
+
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+
+INGRESS_EXTERNAL_IP=`kubectl get svc --namespace=ingress-nginx ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`
+echo $INGRESS_EXTERNAL_IP

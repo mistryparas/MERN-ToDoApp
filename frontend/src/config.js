@@ -1,3 +1,2 @@
-const config = {};
-config["API_URL"] = `${window.location.origin}/api`;
-export default config;
+console.log(process.env.REACT_APP_API_URL)
+export const API_URL = process.env.REACT_APP_API_URL;
